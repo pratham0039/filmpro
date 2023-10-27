@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Scene Description</title>
+</head>
+<body>
+    <h1>Edit Scene Description</h1>
+    <form method="post" id="update-form">
+        {% csrf_token %}
+        <!-- Input field with a label -->
+        <label for="desc">Description:</label>
+        <input type="text" id="desc" name="desc" placeholder="Enter your Description" required value="{{ scene.description|default:'' }}">
+      
+        <button type="submit" id="save-button">Save</button>
+    </form>
+</body>
+</html>

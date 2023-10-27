@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character Detail</title>
+    <style>
+        .good-row{
+            background-color: aqua;
+        }
+        .bad-row{
+            background-color: rgb(229, 32, 10);
+        }
+        .okay-row{
+            background-color: rgb(255, 255, 255);
+        }
+        /* Styles for the popup container */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        
+        /* Styles for the popup content */
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            width: 70%; /* Increase the width */
+            height: 70%; /* Increase the height */
+            max-width: 800px; /* Set a maximum width */
+            max-height: 600px; /* Set a maximum height */
+        }
+    </style>
+</head>
+<body>
+    <h1>Character Detail: Scene {{ scene.scene_number }}</h1>
+    <p>Location: {{ scene.location }}</p>
+    <p>Description: {{ scene.description }}</p>
+    <p>H&M: {{ scene.hair_makeup }}</p>
+    <p>KP: {{ scene.key_props }}</p>
+    <p>PRO: {{ scene.prosthetics }}</p>
+    <p>PR: {{ scene.props }}</p>
+    <p>SD: {{ scene.set_dressing }}</p>
+    <p>EX: {{ scene.extras }}</p>
+    <p>PV: {{ scene.picture_vechiles }}</p>
+    <p>PROD: {{ scene.production }}</p>
+    <p>SP: {{ scene.special_professionals }}</p>
+    <p>SFX: {{ scene.sfx }}</p>
+    <p>VFX: {{ scene.vfx }}</p>
+    <p>SEQ: {{ scene.special_equipments }}</p>
+    <p>NOTES: {{ scene.notes }}</p>    
+    <p>Costume Notes: {{ scene.cn }}</p>
+    <p>Characters in this Scene:</p>
+    <p>Characters in this Scene:</p>
+<ul>
+    {% for character in scene.characters.all %}
+        <li>{{ character.name }}</li>
+    {% endfor %}
+</ul>
+
+  
+    
+       <a id="edit-description-link" href="#">Edit Description</a>
+       <a id="edit-costume-link" href="#">Edit Costume Notes</a>
+       <a id="edit-hm-link" href="#">Edit Hair and Makeup Notes</a>
+       <a id="edit-kp-link" href="#">Edit Key Props</a>
+       <a id="edit-pro-link" href="#">Edit PRO Notes</a>
+       <a id="edit-pr-link" href="#">Edit PR Notes</a>
+       <a id="edit-sd-link" href="#">Edit SD Notes</a>
+       <a id="edit-ex-link" href="#">Edit EX Notes</a>
+       <a id="edit-pv-link" href="#">Edit PV Notes</a>
+       <a id="edit-prod-link" href="#">Edit PROD Notes</a>
+       <a id="edit-sp-link" href="#">Edit SP Notes</a>
+       <a id="edit-sfx-link" href="#">Edit SFX Notes</a>
+       <a id="edit-vfx-link" href="#">Edit VFX Notes</a>
+       <a id="edit-seq-link" href="#">Edit SEQ Notes</a>
+       <a id="edit-notes-link" href="#">Edit Notes</a>
+
+
+
+
+
+
+
+
+
+
+
+
+       
+    
+    <!-- Popup container and content -->
+    <div class="popup-container" id="popup-container">
+        <div class="popup-content">
+            <!-- Your edit description form can go here -->
+            <h1>Edit Scene Description</h1>
+            <form method="post" id="update-form" action="{% url 'save_description' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field with a label -->
+                <label for="desc">Description:</label>
+                <input type="text" id="desc" name="desc" placeholder="Enter your Description" required value="{{ scene.description|default:'' }}">
+              
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <!-- Add your form or input fields here -->
+            <button id="close-popup">Close</button>
+        </div>
+    </div>
+    <div class="popup-container" id="costume-popup-container" >
+        <div class="popup-content">
+            <h1>Edit Costume Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_costume_notes' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for costume notes -->
+                <label for="costume-notes">Costume Notes:</label>
+                <input type="text" id="costume-notes" name="costume-notes" placeholder="Enter your Costume Notes" required value="{{ scene.cn|default:'' }}">
+              
+                <button type="submit" name="description_form" >Save</button>
+            </form>
+            <button id="close-costume-popup">Close</button>
+        </div>
+    </div>
+    <div class="popup-container" id="hm-popup-container" >
+        <div class="popup-content">
+            <h1>Edit HM Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_hm' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for costume notes -->
+                <label for="costume-notes">HM Notes:</label>
+                <input type="text" id="hm" name="hm" placeholder="Enter your Hair And Makeup Notes" required value="{{ scene.hair_makeup|default:'' }}">
+              
+                <button type="submit" name="hm_form" >Save</button>
+            </form>
+            <button id="close-hm-popup">Close</button>
+        </div>
+    </div>
+    <div class="popup-container" id="kp-popup-container" >
+        <div class="popup-content">
+            <h1>Edit KP Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_kp' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for costume notes -->
+                <label for="costume-notes">KP Notes:</label>
+                <input type="text" id="hm" name="kp" placeholder="Enter your Costume Notes" required value="{{ scene.key_props|default:'' }}">
+              
+                <button type="submit" name="description_form" >Save</button>
+            </form>
+            <button id="close-kp-popup">Close</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="pro-popup-container">
+        <div class="popup-content">
+            <h1>Edit PRO Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_pro' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for PRO notes -->
+                <label for="pro-notes">PRO Notes:</label>
+                <input type="text" id="pro" name="pro" placeholder="Enter your PRO Notes" required value="{{ scene.prosthetics|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-pro-popup">Close</button>
+        </div>
+    </div>
+    
+    <div class="popup-container" id="pr-popup-container">
+        <div class="popup-content">
+            <h1>Edit PR Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_pr' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for PR notes -->
+                <label for="pr-notes">PR Notes:</label>
+                <input type="text" id="pr" name="pr" placeholder="Enter your PR Notes" required value="{{ scene.props|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-pr-popup">Close</button>
+        </div>
+    </div>
+    
+    <!-- Repeat the above pattern for other variables like sd, ex, pv, prod, sp, sfx, vfx, seq, and notes -->
+    <div class="popup-container" id="sd-popup-container">
+        <div class="popup-content">
+            <h1>Edit SD Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_sd' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for SD notes -->
+                <label for="sd-notes">SD Notes:</label>
+                <input type="text" id="sd" name="sd" placeholder="Enter your SD Notes" required value="{{ scene.set_dressing|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-sd-popup">Close</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="ex-popup-container">
+        <div class="popup-content">
+            <h1>Edit EX Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_ex' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for EX notes -->
+                <label for="ex-notes">EX Notes:</label>
+                <input type="text" id="ex" name="ex" placeholder="Enter your EX Notes" required value="{{ scene.extras|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-ex-popup">Close</button>
+        </div>
+    </div>
+    
+    <div class="popup-container" id="pv-popup-container">
+        <div class="popup-content">
+            <h1>Edit PV Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_pv' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for PV notes -->
+                <label for="pv-notes">PV Notes:</label>
+                <input type="text" id="pv" name="pv" placeholder="Enter your PV Notes" required value="{{ scene.picture_vechiles|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-pv-popup">Close</button>
+        </div>
+    </div>
+    
+    <div class="popup-container" id="prod-popup-container">
+        <div class="popup-content">
+            <h1>Edit PROD Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_prod' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for PROD notes -->
+                <label for="prod-notes">PROD Notes:</label>
+                <input type="text" id="prod" name="prod" placeholder="Enter your PROD Notes" required value="{{ scene.production|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-prod-popup">Close</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="sp-popup-container">
+        <div class="popup-content">
+            <h1>Edit SP Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_sp' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for SP notes -->
+                <label for="sp-notes">SP Notes:</label>
+                <input type="text" id="sp" name="sp" placeholder="Enter your SP Notes" required value="{{ scene.special_professionals|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-sp-popup">Close</button>
+        </div>
+    </div>
+
+    
+    <div class = "popup-container" id="sfx-popup-container">
+        <div class="popup-content">
+            <h1>Edit SFX Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_sfx' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for SFX notes -->
+                <label for="sfx-notes">SFX Notes:</label>
+                <input type="text" id="sfx" name="sfx" placeholder="Enter your SFX Notes" required value="{{ scene.sfx|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-sfx-popup">Close</button>
+        </div>
+    </div>
+    
+
+    <div class="popup-container" id="vfx-popup-container">
+        <div class="popup-content">
+            <h1>Edit VFX Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_vfx' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for VFX notes -->
+                <label for="vfx-notes">VFX Notes:</label>
+                <input type="text" id="vfx" name="vfx" placeholder="Enter your VFX Notes" required value="{{ scene.vfx|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-vfx-popup">Close</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="seq-popup-container">
+        <div class="popup-content">
+            <h1>Edit SEQ Notes</h1>
+            <form method="post" id="costume-update-form" action="{% url 'save_seq' pk=scene.pk %}">
+                {% csrf_token %}
+                <!-- Input field for SEQ notes -->
+                <label for="seq-notes">SEQ Notes:</label>
+                <input type="text" id="seq" name="seq" placeholder="Enter your SEQ Notes" required value="{{ scene.special_equipments|default:'' }}">
+                <button type="submit" name="description_form">Save</button>
+            </form>
+            <button id="close-seq-popup">Close</button>
+        </div>
+    </div>
+
+    <div class="popup-container" id="notes-popup-container">
+        <div class="popup-content">
+            <h1>Add Duration & Remark for Scene {{ scene.scene_number }}</h1>
+            <form method="post" id="add-duration-remark-form" action="{% url 'add_duration_remark' pk=scene.pk %}">
+                {% csrf_token %}
+                <label for="duration">Duration:</label>
+                <input type="text" id="duration" name="duration" placeholder="Enter duration" required value="">
+                <br>
+                <label for="remark">Remark:</label>
+                <select id="remark" name="remark">
+                    <option value="good">Good</option>
+                    <option value="bad">Bad</option>
+                    <option value="okay">Okay</option>
+                </select>
+                <br>
+                <label for="duration">Lens:</label>
+                <input type="text" id="lenscs" name="lenscs" placeholder="Lens Type" required value="">
+                <label for="duration">Notes:</label>
+                <input type="text" id="notescs" name="notescs" placeholder="Notes" required value="">
+                <button type="submit" id="save-duration-remark-button">Save</button>
+            </form>
+            <button id="close-notes-popup">Close</button>
+        </div>
+    </div>
+
+
+    
+    
+    
+    
+
+    <!-- Add a link to add duration and remark -->
+    <a href="{% url 'add_duration_remark' scene.pk %}">Add Duration & Remark</a>
+     <!-- Display 'duration' and 'remark' in a table format -->
+     <h2>Duration and Remark:</h2>
+     <table>
+         <thead>
+             <tr>
+                 <th>Scene Number</th>
+                 <th>Duration</th>
+                 <th>Remark</th>
+                 <th>Lens</th>
+                 <th>Notes</th>
+             </tr>
+         </thead>
+         <tbody>
+             {% for duration_remark in duration_remark %}
+             <tr class="{% if duration_remark.remark == 'good' %}good-row{% elif duration_remark.remark == 'bad' %}bad-row{% else %}okay-row{% endif %}">
+                     <td>{{ duration_remark.scene_number }}</td>
+                     <td>{{ duration_remark.duration }}</td>
+                     <td>{{ duration_remark.remark }}</td>
+                     <td>{{ duration_remark.lenscs }}</td>
+                     <td>{{ duration_remark.notescs }}</td>
+                 </tr>
+             {% endfor %}
+         </tbody>
+     </table>
+    
+    
+    <script>
+        const editDescriptionLink = document.getElementById("edit-description-link");
+        const popupContainer = document.getElementById("popup-container");
+        const closePopupButton = document.getElementById("close-popup");
+        
+        editDescriptionLink.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            popupContainer.style.display = "block"; // Show the popup
+        });
+        
+        closePopupButton.addEventListener("click", function() {
+            popupContainer.style.display = "none"; // Close the popup
+        });
+        const editCostumeLink = document.getElementById("edit-costume-link");
+const costumePopupContainer = document.getElementById("costume-popup-container");
+const closeCostumePopupButton = document.getElementById("close-costume-popup");
+
+editCostumeLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    costumePopupContainer.style.display = "block";
+});
+
+closeCostumePopupButton.addEventListener("click", function() {
+    costumePopupContainer.style.display = "none";
+});
+
+
+
+const edithmLink = document.getElementById("edit-hm-link");
+const hmPopupContainer = document.getElementById("hm-popup-container");
+const closehmPopupButton = document.getElementById("close-hm-popup");
+
+edithmLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    hmPopupContainer.style.display = "block";
+});
+
+closehmPopupButton.addEventListener("click", function() {
+    hmPopupContainer.style.display = "none";
+});
+
+
+
+const editkpLink = document.getElementById("edit-kp-link");
+const kpPopupContainer = document.getElementById("kp-popup-container");
+const closekpPopupButton = document.getElementById("close-kp-popup");
+
+editkpLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    kpPopupContainer.style.display = "block";
+});
+
+closekpPopupButton.addEventListener("click", function() {
+    kpPopupContainer.style.display = "none";
+});
+
+
+const editproLink = document.getElementById("edit-pro-link");
+const proPopupContainer = document.getElementById("pro-popup-container");
+const closeproPopupButton = document.getElementById("close-pro-popup");
+
+const editprLink = document.getElementById("edit-pr-link");
+const prPopupContainer = document.getElementById("pr-popup-container");
+const closeprPopupButton = document.getElementById("close-pr-popup");
+
+const editsdLink = document.getElementById("edit-sd-link");
+const sdPopupContainer = document.getElementById("sd-popup-container");
+const closesdPopupButton = document.getElementById("close-sd-popup");
+
+const editexLink = document.getElementById("edit-ex-link");
+const exPopupContainer = document.getElementById("ex-popup-container");
+const closeexPopupButton = document.getElementById("close-ex-popup");
+
+const editpvLink = document.getElementById("edit-pv-link");
+const pvPopupContainer = document.getElementById("pv-popup-container");
+const closepvPopupButton = document.getElementById("close-pv-popup");
+
+const editprodLink = document.getElementById("edit-prod-link");
+const prodPopupContainer = document.getElementById("prod-popup-container");
+const closeprodPopupButton = document.getElementById("close-prod-popup");
+
+const editspLink = document.getElementById("edit-sp-link");
+const spPopupContainer = document.getElementById("sp-popup-container");
+const closespPopupButton = document.getElementById("close-sp-popup");
+
+const editsfxLink = document.getElementById("edit-sfx-link");
+const sfxPopupContainer = document.getElementById("sfx-popup-container");
+const closesfxPopupButton = document.getElementById("close-sfx-popup");
+
+const editvfxLink = document.getElementById("edit-vfx-link");
+const vfxPopupContainer = document.getElementById("vfx-popup-container");
+const closevfxPopupButton = document.getElementById("close-vfx-popup");
+
+const editseqLink = document.getElementById("edit-seq-link");
+const seqPopupContainer = document.getElementById("seq-popup-container");
+const closeseqPopupButton = document.getElementById("close-seq-popup");
+
+const editnotesLink = document.getElementById("edit-notes-link");
+const notesPopupContainer = document.getElementById("notes-popup-container");
+const closenotesPopupButton = document.getElementById("close-notes-popup");
+
+
+
+editproLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    proPopupContainer.style.display = "block";
+});
+
+closeproPopupButton.addEventListener("click", function() {
+    proPopupContainer.style.display = "none";
+});
+
+editprLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    prPopupContainer.style.display = "block";
+});
+
+closeprPopupButton.addEventListener("click", function() {
+    prPopupContainer.style.display = "none";
+});
+
+editsdLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    sdPopupContainer.style.display = "block";
+});
+
+closesdPopupButton.addEventListener("click", function() {
+    sdPopupContainer.style.display = "none";
+});
+
+editexLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    exPopupContainer.style.display = "block";
+});
+
+closeexPopupButton.addEventListener("click", function() {
+    exPopupContainer.style.display = "none";
+});
+
+editpvLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    pvPopupContainer.style.display = "block";
+});
+
+closepvPopupButton.addEventListener("click", function() {
+    pvPopupContainer.style.display = "none";
+});
+
+editprodLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    prodPopupContainer.style.display = "block";
+});
+
+closeprodPopupButton.addEventListener("click", function() {
+    prodPopupContainer.style.display = "none";
+});
+
+editspLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    spPopupContainer.style.display = "block";
+});
+
+closespPopupButton.addEventListener("click", function() {
+    spPopupContainer.style.display = "none";
+});
+
+editsfxLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    sfxPopupContainer.style.display = "block";
+});
+
+closesfxPopupButton.addEventListener("click", function() {
+    sfxPopupContainer.style.display = "none";
+});
+
+editvfxLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    vfxPopupContainer.style.display = "block";
+});
+
+closevfxPopupButton.addEventListener("click", function() {
+    vfxPopupContainer.style.display = "none";
+});
+
+editseqLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    seqPopupContainer.style.display = "block";
+});
+
+closeseqPopupButton.addEventListener("click", function() {
+    seqPopupContainer.style.display = "none";
+});
+
+editnotesLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    notesPopupContainer.style.display = "block";
+});
+
+closenotesPopupButton.addEventListener("click", function() {
+    notesPopupContainer.style.display = "none";
+});
+
+
+
+
+
+
+    </script>
+</body>
+</html>

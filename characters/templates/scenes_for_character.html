@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scenes for Character</title>
+</head>
+<body>
+    <h1>Scenes for Character: {{ character.name }}</h1>
+    <ul>
+        {% for scene in character.scenes.all %}
+            <li><a href="{% url 'character_detail' scene.id %}">Scene {{ scene.scene_number }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

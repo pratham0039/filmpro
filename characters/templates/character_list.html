@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Character List</title>
+</head>
+<body>
+    <h1>Character List</h1>
+    <ul>
+        {% for character in characters %}
+            <li><a href="{% url 'scenes_for_character' character.id %}">{{ character.name }}</a></li>
+        {% endfor %}
+        <form method="post" action="{% url 'delete_all_entries' %}">
+            {% csrf_token %}
+            <p>Click the button below to delete all entries from the selected models.</p>
+            <button type="submit">Delete All</button>
+        </form>
+    </ul>
+</body>
+</html>

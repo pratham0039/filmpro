@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Duration & Remark</title>
+</head>
+<body>
+    <h1>Add Duration & Remark for Scene {{ scene.scene_number }}</h1>
+    <form method="post" id="add-duration-remark-form">
+        {% csrf_token %}
+        <label for="duration">Duration:</label>
+        <input type="text" id="duration" name="duration" placeholder="Enter duration" required value="">
+        <br>
+        <label for="remark">Remark:</label>
+        <select id="remark" name="remark">
+            <option value="good">Good</option>
+            <option value="bad">Bad</option>
+            <option value="okay">Okay</option>
+        </select>
+        <br>
+        <label for="duration">Lens:</label>
+        <input type="text" id="lenscs" name="lenscs" placeholder="Lens Type" required value="">
+        <label for="duration">Notes:</label>
+        <input type="text" id="notescs" name="notescs" placeholder="Notes" required value="">
+        <button type="submit" id="save-duration-remark-button">Save</button>
+    </form>
+</body>
+</html>

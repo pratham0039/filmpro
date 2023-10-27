@@ -1,0 +1,1416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    
+    Film Tool App
+  </title>
+  <style>
+    .good-row{
+        background-color: #4FD1C5;
+    }
+    .bad-row{
+        background-color: rgb(229, 32, 10);
+    }
+    .okay-row{
+        background-color: rgb(0, 66, 147);
+    }
+    /* Styles for the popup container */
+    .popup-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        text-align: center;
+
+    }
+    
+    /* Styles for the popup content */
+    .popup-content {
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        width: 70%; /* Increase the width */
+        height: 70%; /* Increase the height */
+        max-width: 800px; /* Set a maximum width */
+        max-height: 600px; /* Set a maximum height */
+        border-radius: 20px;
+        border: #f8f9fa;
+    }
+    .custom-input {
+        width: 100%;
+        height: 150px; /* Adjust the width to your preference */
+        padding: 10px; /* Add padding for spacing inside the input */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 5px; /* Add rounded corners */
+        font-size: 16px; /* Set the font size */
+        /* Add more styles as needed */
+}
+
+</style>
+  {% load static %}
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  
+  <link id="pagestyle" href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+        <img src="{% static 'img/main-logo.jpg' %}" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">Film Tool App</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main" style="background-color: #f8f9fa;">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link  " href="../pages/dashboard.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="{% static 'img/home.png' %}" style="height: 15px;" alt="Your Custom Icon">
+
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="/characters/">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="{% static 'img/person.png' %}" style="height: 15px;" alt="Your Custom Icon">
+
+            </div>
+            <span class="nav-link-text ms-1">Actors</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="../pages/billing.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="{% static 'img/location.png' %}" style="height: 15px;" alt="Your Custom Icon">
+
+            </div>
+            <span class="nav-link-text ms-1">Location</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  href="/scenes/">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <img src="{% static 'img/sceneic.png' %}" style="height: 15px;" alt="Your Custom Icon">
+
+            </div>
+            <span class="nav-link-text ms-1">Scenes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active " href="../pages/rtl.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>settings</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(304.000000, 151.000000)">
+                        <polygon class="color-background opacity-6" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667"></polygon>
+                        <path class="color-background opacity-6" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z"></path>
+                        <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Director</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Extras</h6>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/profile.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>customer-support</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(1.000000, 0.000000)">
+                        <path class="color-background opacity-6" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"></path>
+                        <path class="color-background" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"></path>
+                        <path class="color-background" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="../pages/sign-in.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>document</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(154.000000, 300.000000)">
+                        <path class="color-background opacity-6" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"></path>
+                        <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Sign In</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  " href="../pages/sign-up.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="20px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>spaceship</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1720.000000, -592.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(4.000000, 301.000000)">
+                        <path class="color-background" d="M39.3,0.706666667 C38.9660984,0.370464027 38.5048767,0.192278529 38.0316667,0.216666667 C14.6516667,1.43666667 6.015,22.2633333 5.93166667,22.4733333 C5.68236407,23.0926189 5.82664679,23.8009159 6.29833333,24.2733333 L15.7266667,33.7016667 C16.2013871,34.1756798 16.9140329,34.3188658 17.535,34.065 C17.7433333,33.98 38.4583333,25.2466667 39.7816667,1.97666667 C39.8087196,1.50414529 39.6335979,1.04240574 39.3,0.706666667 Z M25.69,19.0233333 C24.7367525,19.9768687 23.3029475,20.2622391 22.0572426,19.7463614 C20.8115377,19.2304837 19.9992882,18.0149658 19.9992882,16.6666667 C19.9992882,15.3183676 20.8115377,14.1028496 22.0572426,13.5869719 C23.3029475,13.0710943 24.7367525,13.3564646 25.69,14.31 C26.9912731,15.6116662 26.9912731,17.7216672 25.69,19.0233333 L25.69,19.0233333 Z"></path>
+                        <path class="color-background opacity-6" d="M1.855,31.4066667 C3.05106558,30.2024182 4.79973884,29.7296005 6.43969145,30.1670277 C8.07964407,30.6044549 9.36054508,31.8853559 9.7979723,33.5253085 C10.2353995,35.1652612 9.76258177,36.9139344 8.55833333,38.11 C6.70666667,39.9616667 0,40 0,40 C0,40 0,33.2566667 1.855,31.4066667 Z"></path>
+                        <path class="color-background opacity-6" d="M17.2616667,3.90166667 C12.4943643,3.07192755 7.62174065,4.61673894 4.20333333,8.04166667 C3.31200265,8.94126033 2.53706177,9.94913142 1.89666667,11.0416667 C1.5109569,11.6966059 1.61721591,12.5295394 2.155,13.0666667 L5.47,16.3833333 C8.55036617,11.4946947 12.5559074,7.25476565 17.2616667,3.90166667 L17.2616667,3.90166667 Z"></path>
+                        <path class="color-background opacity-6" d="M36.0983333,22.7383333 C36.9280725,27.5056357 35.3832611,32.3782594 31.9583333,35.7966667 C31.0587397,36.6879974 30.0508686,37.4629382 28.9583333,38.1033333 C28.3033941,38.4890431 27.4704606,38.3827841 26.9333333,37.845 L23.6166667,34.53 C28.5053053,31.4496338 32.7452344,27.4440926 36.0983333,22.7383333 L36.0983333,22.7383333 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text ms-1">Sign Up</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+   
+  </aside>
+  <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    <!-- Navbar -->
+ 
+   
+    <!-- End Navbar -->
+    <div class="container-fluid">
+      <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
+        <div class="container-fluid py-1">
+          
+          <div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
+            
+            <ul class="navbar-nav d-block align-items-center  ">
+   
+        
+         
+              <li class="nav-item dropdown pe-2 d-flex">
+                <a href="javascript:;" class="nav-link text-white p-0"  data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bell cursor-pointer" id="bell-icon" ></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end px-2 py-3 ms-n4" aria-labelledby="dropdownMenuButton">
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="my-auto">
+                          <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            <span class="font-weight-bold">Director</span> added VFX to scene 1
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            13 minutes ago
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="mb-2">
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="my-auto">
+                          <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark me-3">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            <span class="font-weight-bold">Costume</span> added to scene 2
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            1 day
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item border-radius-md" href="javascript:;">
+                      <div class="d-flex py-1">
+                        <div class="avatar avatar-sm bg-gradient-secondary me-3 my-auto">
+                          <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>credit-card</title>
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                <g transform="translate(1716.000000, 291.000000)">
+                                  <g transform="translate(453.000000, 454.000000)">
+                                    <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                    <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center">
+                          <h6 class="text-sm font-weight-normal mb-1">
+                            VFX added to scene 3
+                          </h6>
+                          <p class="text-xs text-secondary mb-0">
+                            <i class="fa fa-clock me-1"></i>
+                            2 days
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="page-header min-height-200 border-radius-xl mt-4" style="background-image: url('../assets/img/top_image.png'); background-position-y: 50%;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+      </div>
+      <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{% static 'img/scene.png' %}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                Scene {{scene.scene_number}}
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                
+              </p>
+            </div>
+          </div>
+     
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="toggle-cards-button">
+          
+          
+          <button class="toggle-button" data-target="card1">Scene Description</button>
+          <button class="toggle-button" data-target="sfx">SFX</button>
+          <button class="toggle-button" data-target="vfx">VFX</button>
+          <button class="toggle-button" data-target="extras">Extras</button>
+          <button class="toggle-button" data-target="Special_professionals">Special Professionals</button>
+          <button class="toggle-button" data-target="props">Props</button>
+          <button class="toggle-button" data-target="key_props">Key Props</button>
+          <button class="toggle-button" data-target="prosthetics">Prosthetics</button>
+          <button class="toggle-button" data-target="set_dressing">Set Dressing</button>
+          <button class="toggle-button" data-target="hm">Hair and Makeup</button>
+          <button class="toggle-button" data-target="picture_vechiles">Picture Vechiles</button>
+          <button class="toggle-button" data-target="production">Production</button>
+          <button class="toggle-button" data-target="special_equipments">Special Equipments</button>
+          <button class="toggle-button" data-target="notes">Notes</button>
+          <button class="toggle-button" data-target="shot_breakdown">Shot Breakdown</button>
+          <button class="toggle-button" data-target="storyboard">Storyboard</button>
+        </div>
+        <div class="card-container">
+          <div class="card" style="flex: 0 0 calc(100% - 10px); " id ="card1">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Scene Description</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-description-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Scene"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <ul class="list-group">
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Charactors</strong> &nbsp;
+                  
+                    {% for character in scene.characters.all %}
+                       {{ character.name }},
+                    {% endfor %}
+                  
+                  
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location</strong> &nbsp;  {{ scene.location }} </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">INT/EXT</strong> &nbsp;  {{ scene.int_ext }} </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Time Of the Day</strong> &nbsp;  {{ scene.timeofday }} </li>
+  
+  
+              </ul>
+              <p class="text-sm">
+                {{ scene.description }}
+              </p>
+              <hr class="horizontal gray-light my-4">
+
+            </div>
+            <!-- Your card content here -->
+          </div>
+
+
+        </div>
+        <div class="card-container">
+
+          <div class="card" id ="hm">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Hair And Makeup</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-hm-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.hair_makeup}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="cn">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Costume Notes</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-costume-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.cn}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="picture_vechiles">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Picture Vechiles</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-pv-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.picture_vechiles}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="set_dressing">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Set Dressing</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-sd-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.set_dressing}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="production">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Production</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-prod-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.production}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="special_equipments">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Special Equipments</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-seq-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.special_equipments}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="notes">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Notes</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-notes-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.notes}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="prosthetics">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Prosthetics</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-pro-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.prosthetics}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="sfx">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">SFX</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-sfx-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.sfx}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="vfx">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">VFX</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-vfx-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.vfx}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="extras" >
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Extras</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-ex-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.extras}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="Special_professionals">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Special Professionals</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-sp-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.special_professionals}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="props">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Props</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-pr-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.props}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="key_props">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Key Props</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-kp-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                {{scene.key_props}}
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+        <div class="card" id ="shot_breakdown">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Shot Breakdown</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a href="javascript:;">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+                In Progress
+              </p>
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+          <div class="card" id ="storyboard">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Storyboard</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a id="edit-story-link" href="#">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit VFX"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+              <p class="text-sm">
+               story
+              </p>
+              <img src="{{ scene.story.url }}" style="height: 400px;">
+              <hr class="horizontal gray-light my-4">
+  
+            </div>
+            <!-- Your card content here -->
+          </div>
+
+          <!-- Add more cards as needed -->
+        </div>
+        <div class="col-12 mt-6">
+          <div class="card mb-4">
+            <div class="card-header pb-0 p-3" style="display: flex; justify-content: space-between;">
+
+              <h6 class="mb-1 mt-3">Continuity sheet</h6>
+              <button  class="btn bg-gradient-primary mt-3 w-20" href ="#" id="edit-cn-link" >Add Shot</button>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="btn-one">Download PDF</button>
+
+            </div>
+
+            <div class="card-body p-3">
+              <div class="table-responsive p-0" id = "pdf-container">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-secondary opacity-7">Scene Number</th>
+                      <th class="text-secondary opacity-7">Shot No.</th>
+                      <th class="text-secondary opacity-7">Duration</th>
+                      <th class="text-secondary opacity-7">Remarks</th>
+                      <th class="text-secondary opacity-7">Lens</th>
+                      <th class="text-secondary opacity-7">Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for duration_remark in duration_remark %}
+                    <tr class="{% if duration_remark.remark == 'good' %}good-row{% elif duration_remark.remark == 'bad' %}bad-row{% else %}okay-row{% endif %}">
+                            <td style="width: 10%; color: white;"><strong>{{ duration_remark.scene_number }}</strong></td>
+                            <td style="width: 10%; color: white;"><strong>{{ duration_remark.shotno }}</strong></td>
+                            <td style="width: 10%; color: white;"><strong>{{ duration_remark.duration }}</strong></td>
+                            <td style="width: 10%; color: white;"><strong>{{ duration_remark.remark }}</strong></td>
+                            <td style="width: 20%; color: white;"><strong>{{ duration_remark.lenscs }}</strong></td>
+                            <td style="width: 40%; color: white;"><strong>{{ duration_remark.notescs }}</strong></td>
+                        </tr>
+                    {% endfor %}
+
+
+
+
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!--Popups-->
+        <div class="popup-container" id="popup-container">
+          <div class="popup-content">
+              <!-- Your edit description form can go here -->
+              <h3>Edit Scene Description</h3>
+              <form method="post" id="update-form" action="{% url 'save_description' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field with a label -->
+                  <label for="desc">Description:</label>
+                  
+                  <textarea class="custom-input" id="desc" name="desc" placeholder="Enter your Description" required>{{ scene.description|default:'' }}</textarea>
+
+                
+                  <button  class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <!-- Add your form or input fields here -->
+              <button  class="btn bg-gradient-primary mt-3 w-20" id="close-popup">Close</button>
+          </div>
+      </div>
+      <div class="popup-container" id="costume-popup-container" >
+          <div class="popup-content">
+              <h3>Edit Costume Notes</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_costume_notes' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for costume notes -->
+                  <label for="costume-notes">Costume Notes:</label>
+                  <textarea class="custom-input" id="costume-notes" name="costume-notes" placeholder="Enter your Costume Notes" required>{{ scene.cn|default:'' }}</textarea>
+                 
+                
+                  <button type="submit" class="btn bg-gradient-primary mt-3 w-20" name="description_form" >Save</button>
+              </form>
+              <button id="close-costume-popup" class="btn bg-gradient-primary mt-3 w-20" >Close</button>
+          </div>
+      </div>
+
+      <div class="popup-container" id="story-popup-container" >
+        <div class="popup-content">
+            <h3>Edit Costume Notes</h3>
+            <form method="post" id="costume-update-form" action="{% url 'save_story_notes' pk=scene.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Input field for costume notes -->
+                <label for="costume-notes">Story:</label>
+                <input type="file" id="story" name="story">
+               
+              
+                <button type="submit" class="btn bg-gradient-primary mt-3 w-20" name="description_form" >Save</button>
+            </form>
+            <button id="close-story-popup" class="btn bg-gradient-primary mt-3 w-20" >Close</button>
+        </div>
+    </div>
+
+
+      <div class="popup-container" id="hm-popup-container">
+          <div class="popup-content">
+              <h3>Edit Hair and Makeup Notes</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_hm' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for costume notes -->
+                  <label for="costume-notes">HM Notes:</label>
+                  <textarea  class="custom-input" id="hm" name="hm" placeholder="Enter your Hair And Makeup Notes" required>{{ scene.hair_makeup|default:'' }}</textarea>
+                
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="hm_form" >Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-hm-popup">Close</button>
+          </div>
+      </div>
+      <div class="popup-container" id="kp-popup-container" >
+          <div class="popup-content">
+              <h3>Edit Key Props</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_kp' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for costume notes -->
+                  <label for="costume-notes">KP Notes:</label>
+                  <textarea class="custom-input" id="hm" name="kp" placeholder="Enter your Costume Notes" required>{{ scene.key_props|default:'' }}</textarea>
+                
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form" >Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-kp-popup">Close</button>
+          </div>
+      </div>
+  
+      <div class="popup-container" id="pro-popup-container">
+          <div class="popup-content">
+              <h3>Edit Production</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_pro' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for PRO notes -->
+                  <label for="pro-notes">PRO Notes:</label>
+                  <textarea class="custom-input" id="pro" name="pro" placeholder="Enter your PRO Notes" required>{{ scene.prosthetics|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-pro-popup">Close</button>
+          </div>
+      </div>
+      
+      <div class="popup-container" id="pr-popup-container">
+          <div class="popup-content">
+              <h3>Edit Props</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_pr' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for PR notes -->
+                  <label for="pr-notes">PR Notes:</label>
+                  <textarea class="custom-input" id="pr" name="pr" placeholder="Enter your PR Notes" required>{{ scene.props|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-pr-popup">Close</button>
+          </div>
+      </div>
+      
+      <!-- Repeat the above pattern for other variables like sd, ex, pv, prod, sp, sfx, vfx, seq, and notes -->
+      <div class="popup-container" id="sd-popup-container">
+          <div class="popup-content">
+              <h3>Edit Set Dressing</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_sd' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for SD notes -->
+                  <label for="sd-notes">SD Notes:</label>
+                  <textarea class="custom-input" id="sd" name="sd" placeholder="Enter your SD Notes" required>{{ scene.set_dressing|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-sd-popup">Close</button>
+          </div>
+      </div>
+  
+      <div class="popup-container" id="ex-popup-container">
+          <div class="popup-content">
+              <h3>Edit Extras</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_ex' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for EX notes -->
+                  <label for="ex-notes">EX Notes:</label>
+                  <textarea class="custom-input" id="ex" name="ex" placeholder="Enter your EX Notes" required>{{ scene.extras|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-ex-popup">Close</button>
+          </div>
+      </div>
+      
+      <div class="popup-container" id="pv-popup-container">
+          <div class="popup-content">
+              <h3>Edit Picture Vechiles</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_pv' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for PV notes -->
+                  <label for="pv-notes">PV Notes:</label>
+                  <textarea class="custom-input" id="pv" name="pv" placeholder="Enter your PV Notes" required>{{ scene.picture_vechiles|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-pv-popup">Close</button>
+          </div>
+      </div>
+      
+      <div class="popup-container" id="prod-popup-container">
+          <div class="popup-content">
+              <h3>Edit Production</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_prod' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for PROD notes -->
+                  <label for="prod-notes">PROD Notes:</label>
+                  <textarea class="custom-input" id="prod" name="prod" placeholder="Enter your PROD Notes" required>{{ scene.production|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-prod-popup">Close</button>
+          </div>
+      </div>
+  
+      <div class="popup-container" id="sp-popup-container">
+          <div class="popup-content">
+              <h3>Edit Special Professional</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_sp' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for SP notes -->
+                  <label for="sp-notes">SP Notes:</label>
+                  <textarea class="custom-input" id="sp" name="sp" placeholder="Enter your SP Notes" required>{{ scene.special_professionals|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-sp-popup">Close</button>
+          </div>
+      </div>
+  
+      
+      <div class = "popup-container" id="sfx-popup-container">
+          <div class="popup-content">
+              <h3>Edit SFX Notes</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_sfx' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for SFX notes -->
+                  <label for="sfx-notes">SFX Notes:</label>
+                  <textarea class="custom-input" id="sfx" name="sfx" placeholder="Enter your SFX Notes" required>{{ scene.sfx|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-sfx-popup">Close</button>
+          </div>
+      </div>
+      
+  
+      <div class="popup-container" id="vfx-popup-container">
+          <div class="popup-content">
+              <h3>Edit VFX Notes</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_vfx' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for VFX notes -->
+                  <label for="vfx-notes">VFX Notes:</label>
+                  <textarea class="custom-input" id="vfx" name="vfx" placeholder="Enter your VFX Notes" required>{{ scene.vfx|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-vfx-popup">Close</button>
+          </div>
+      </div>
+  
+      <div class="popup-container" id="seq-popup-container">
+          <div class="popup-content">
+              <h3>Edit Special Equipment Notes</h3>
+              <form method="post" id="costume-update-form" action="{% url 'save_seq' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for SEQ notes -->
+                  <label for="seq-notes">SEQ Notes:</label>
+                  <textarea class="custom-input" id="seq" name="seq" placeholder="Enter your SEQ Notes" required>{{ scene.special_equipments|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn-download" id="close-seq-popup">Close</button>
+          </div>
+      </div>
+  
+      <div class="popup-container" id="notes-popup-container">
+          <div class="popup-content">
+              <h1>Edit Notes</h1>
+              <form method="post" id="costume-update-form" action="{% url 'save_notes' pk=scene.pk %}">
+                  {% csrf_token %}
+                  <!-- Input field for notes -->
+                  <label for="notes">Notes:</label>
+                  <textarea class="custom-input" id="notes" name="notes" placeholder="Enter your Notes" required>{{ scene.notes|default:'' }}</textarea>
+                  <button class="btn bg-gradient-primary mt-3 w-20" type="submit" name="description_form">Save</button>
+              </form>
+              <button class="btn bg-gradient-primary mt-3 w-20" id="close-notes-popup">Close</button>
+          </div>
+      </div>
+
+      <div class="popup-container" id="cn-popup-container">
+        <div class="popup-content">
+            <h3>Add a shot {{ scene.scene_number }}</h3>
+            <form method="post" id="add-duration-remark-form" action="{% url 'add_duration_remark' pk=scene.pk %}">
+                {% csrf_token %}
+                <label for="duration">Shot No,:</label>
+                <input type="text" id="shotno" name="shotno" placeholder="Enter Shot No." required value=""><br>
+                <label for="duration">Duration:</label>
+                <input type="text" id="duration" name="duration" placeholder="Enter duration" required value="">
+                <br>
+                <label  for="remark">Remark:</label>
+                <select class="btn bg-gradient-primary mt-3 w-20" id="remark" name="remark">
+                    <option value="good">Good</option>
+                    <option value="bad">Bad</option>
+                    <option value="okay">Okay</option>
+                </select>
+                <br>
+                <label for="duration">Lens:</label>
+                <input type="text" id="lenscs" name="lenscs" placeholder="Lens Type" required value=""><br>
+                <label for="duration">Notes:</label>
+                <input type="text" id="notescs" name="notescs" placeholder="Notes" required value=""><br>
+                <button class="btn bg-gradient-primary mt-3 w-20" type="submit" id="save-duration-remark-button">Save</button>
+            </form>
+            <button class="btn bg-gradient-primary mt-3 w-20" id="close-cn-popup">Close</button>
+        </div>
+    </div>
+
+
+          
+        </div>
+
+      
+
+      
+      
+      
+      <footer class="footer pt-3  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                Pratham
+                for a better web.
+              </div>
+            </div>
+   
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+  <script src="{% static 'js/core/popper.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+  integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+
+<script src="{% static 'js/my.js' %}"></script>
+  <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+  <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+  
+
+  <script>
+    const toggleButtons = document.querySelectorAll('.toggle-button');
+const cards = document.querySelectorAll('.card');
+
+toggleButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const target = button.getAttribute('data-target');
+    const card = document.getElementById(target);
+
+    // Toggle the 'hidden' class for the corresponding card.
+    if (card) {
+      card.classList.toggle('hidden');
+    }
+
+    // Toggle the 'active' class for the button.
+    button.classList.toggle('active');
+  });
+});
+
+
+
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+
+
+
+
+
+
+
+        const editDescriptionLink = document.getElementById("edit-description-link");
+        const popupContainer = document.getElementById("popup-container");
+        const closePopupButton = document.getElementById("close-popup");
+        
+        editDescriptionLink.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            popupContainer.style.display = "block"; // Show the popup
+        });
+        
+        closePopupButton.addEventListener("click", function() {
+            popupContainer.style.display = "none"; // Close the popup
+        });
+
+        const editcostumeLink = document.getElementById("edit-costume-link");
+        const costumepopupContainer = document.getElementById("costume-popup-container");
+        const closecostumePopupButton = document.getElementById("close-costume-popup");
+        
+        editcostumeLink.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            costumepopupContainer.style.display = "block"; // Show the popup
+        });
+        
+        closecostumePopupButton.addEventListener("click", function() {
+            costumepopupContainer.style.display = "none"; // Close the popup
+        });
+
+
+        const editstoryLink = document.getElementById("edit-story-link");
+        const storypopupContainer = document.getElementById("story-popup-container");
+        const closestoryPopupButton = document.getElementById("close-story-popup");
+        
+        editstoryLink.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            storypopupContainer.style.display = "block"; // Show the popup
+        });
+        
+        closestoryPopupButton.addEventListener("click", function() {
+            storypopupContainer.style.display = "none"; // Close the popup
+        });
+ 
+
+
+
+        const edithmLink = document.getElementById("edit-hm-link");
+        const hmPopupContainer = document.getElementById("hm-popup-container");
+        const closehmPopupButton = document.getElementById("close-hm-popup");
+
+        edithmLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            hmPopupContainer.style.display = "block";
+        });
+
+        closehmPopupButton.addEventListener("click", function() {
+            hmPopupContainer.style.display = "none";
+        });
+
+
+
+        const editkpLink = document.getElementById("edit-kp-link");
+        const kpPopupContainer = document.getElementById("kp-popup-container");
+        const closekpPopupButton = document.getElementById("close-kp-popup");
+
+        editkpLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            kpPopupContainer.style.display = "block";
+        });
+
+        closekpPopupButton.addEventListener("click", function() {
+            kpPopupContainer.style.display = "none";
+        });
+
+
+        const editproLink = document.getElementById("edit-pro-link");
+        const proPopupContainer = document.getElementById("pro-popup-container");
+        const closeproPopupButton = document.getElementById("close-pro-popup");
+
+        const editprLink = document.getElementById("edit-pr-link");
+        const prPopupContainer = document.getElementById("pr-popup-container");
+        const closeprPopupButton = document.getElementById("close-pr-popup");
+
+        const editsdLink = document.getElementById("edit-sd-link");
+        const sdPopupContainer = document.getElementById("sd-popup-container");
+        const closesdPopupButton = document.getElementById("close-sd-popup");
+
+        const editexLink = document.getElementById("edit-ex-link");
+        const exPopupContainer = document.getElementById("ex-popup-container");
+        const closeexPopupButton = document.getElementById("close-ex-popup");
+
+        const editpvLink = document.getElementById("edit-pv-link");
+        const pvPopupContainer = document.getElementById("pv-popup-container");
+        const closepvPopupButton = document.getElementById("close-pv-popup");
+
+        const editprodLink = document.getElementById("edit-prod-link");
+        const prodPopupContainer = document.getElementById("prod-popup-container");
+        const closeprodPopupButton = document.getElementById("close-prod-popup");
+
+        const editspLink = document.getElementById("edit-sp-link");
+        const spPopupContainer = document.getElementById("sp-popup-container");
+        const closespPopupButton = document.getElementById("close-sp-popup");
+
+        const editsfxLink = document.getElementById("edit-sfx-link");
+        const sfxPopupContainer = document.getElementById("sfx-popup-container");
+        const closesfxPopupButton = document.getElementById("close-sfx-popup");
+
+        const editvfxLink = document.getElementById("edit-vfx-link");
+        const vfxPopupContainer = document.getElementById("vfx-popup-container");
+        const closevfxPopupButton = document.getElementById("close-vfx-popup");
+
+        const editseqLink = document.getElementById("edit-seq-link");
+        const seqPopupContainer = document.getElementById("seq-popup-container");
+        const closeseqPopupButton = document.getElementById("close-seq-popup");
+
+        const editnotesLink = document.getElementById("edit-notes-link");
+        const notesPopupContainer = document.getElementById("notes-popup-container");
+        const closenotesPopupButton = document.getElementById("close-notes-popup");
+
+        const editcnLink = document.getElementById("edit-cn-link");
+        const cnPopupContainer = document.getElementById("cn-popup-container");
+        const closecnPopupButton = document.getElementById("close-cn-popup");
+
+
+        
+        editcnLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            cnPopupContainer.style.display = "block";
+        });
+
+        closecnPopupButton.addEventListener("click", function() {
+            cnPopupContainer.style.display = "none";
+        });
+
+
+
+        editproLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            proPopupContainer.style.display = "block";
+        });
+
+        closeproPopupButton.addEventListener("click", function() {
+            proPopupContainer.style.display = "none";
+        });
+
+        editprLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            prPopupContainer.style.display = "block";
+        });
+
+        closeprPopupButton.addEventListener("click", function() {
+            prPopupContainer.style.display = "none";
+        });
+
+        editsdLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            sdPopupContainer.style.display = "block";
+        });
+
+        closesdPopupButton.addEventListener("click", function() {
+            sdPopupContainer.style.display = "none";
+        });
+
+        editexLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            exPopupContainer.style.display = "block";
+        });
+
+        closeexPopupButton.addEventListener("click", function() {
+            exPopupContainer.style.display = "none";
+        });
+
+        editpvLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            pvPopupContainer.style.display = "block";
+        });
+
+        closepvPopupButton.addEventListener("click", function() {
+            pvPopupContainer.style.display = "none";
+        });
+
+        editprodLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            prodPopupContainer.style.display = "block";
+        });
+
+        closeprodPopupButton.addEventListener("click", function() {
+            prodPopupContainer.style.display = "none";
+        });
+
+        editspLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            spPopupContainer.style.display = "block";
+        });
+
+        closespPopupButton.addEventListener("click", function() {
+            spPopupContainer.style.display = "none";
+        });
+
+        editsfxLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            sfxPopupContainer.style.display = "block";
+        });
+
+        closesfxPopupButton.addEventListener("click", function() {
+            sfxPopupContainer.style.display = "none";
+        });
+
+        editvfxLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            vfxPopupContainer.style.display = "block";
+        });
+
+        closevfxPopupButton.addEventListener("click", function() {
+            vfxPopupContainer.style.display = "none";
+        });
+
+        editseqLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            seqPopupContainer.style.display = "block";
+        });
+
+        closeseqPopupButton.addEventListener("click", function() {
+            seqPopupContainer.style.display = "none";
+        });
+
+        editnotesLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            notesPopupContainer.style.display = "block";
+        });
+
+        closenotesPopupButton.addEventListener("click", function() {
+            notesPopupContainer.style.display = "none";
+        });
+
+
+        document.getElementById('bell-icon').addEventListener('click', toggleNotificationDropdown);
+        function toggleNotificationDropdown() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            dropdownMenu.classList.toggle('show');
+          }
+
+      // Get a reference to the download button and the PDF container div
+ 
+
+
+  </script>
+
+
+
+
+
+
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  
+  
+
+  
+
+
+
+
+</script>
+
+</body>
+
+</html>

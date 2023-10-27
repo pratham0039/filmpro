@@ -1,0 +1,12 @@
+<div class="popup-container" id="{{ popup_id }}">
+    <div class="popup-content">
+        <h1>{{ popup_title }}</h1>
+        <form method="post" id="{{ popup_form_id }}">
+            {% csrf_token %}
+            <label for="{{ popup_input_id }}">{{ popup_label }}</label>
+            <input type="text" id="{{ popup_input_id }}" name="{{ popup_input_name }}" placeholder="{{ popup_input_placeholder }}" required value="{{ popup_input_value|default:'' }}">
+            <button type="submit" id="{{ popup_save_button_id }}">Save</button>
+        </form>
+        <button id="{{ popup_close_button_id }}">Close</button>
+    </div>
+</div>
