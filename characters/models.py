@@ -26,7 +26,7 @@ class Scene(models.Model):
     notes = models.TextField(null=True, blank=True)
     int_ext = models.TextField(null=True, blank=True)
     timeofday = models.TextField(null=True, blank=True)
-    story = models.ImageField(upload_to='scene_images/', default='static\img\add.png', null=True, blank=True)
+    story = models.ImageField(upload_to='scene_images/', default='static/img/add.png', null=True, blank=True)
 
 
     
@@ -37,7 +37,7 @@ class Scene(models.Model):
 class Character(models.Model):
     name = models.CharField(max_length=255)
     scenes = models.ManyToManyField(Scene, related_name='characters')
-    avatar = models.ImageField(upload_to='char_images/', default='static\img\add.png', null=True, blank=True)
+    avatar = models.ImageField(upload_to='char_images/', default='static/img/add.png', null=True, blank=True)
 
     def __str__(self):
         return self.name
