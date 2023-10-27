@@ -87,7 +87,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.parse('postgres://filmproapp_user:e6RRD53oxHVsf8OPPI0nWpGBMBlhoCLD@dpg-ckttqr3amefc73c1il8g-a.oregon-postgres.render.com/filmproapp')
+
 
 
 # Password validation
