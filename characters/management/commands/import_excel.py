@@ -18,8 +18,7 @@ class Command(BaseCommand):
 
         for index, row in data.iterrows():
             y = y+1
-            if y = 30:
-                break
+
             scene_number = row['scene_number']
             location = row['location']
             description = row['description']
@@ -166,4 +165,6 @@ class Command(BaseCommand):
 
             # Add the characters to the scene
             scene.characters.add(*characters)
+            if y = 30:
+                break
             
