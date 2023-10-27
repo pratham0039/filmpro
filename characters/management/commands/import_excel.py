@@ -14,8 +14,12 @@ class Command(BaseCommand):
         file_path = os.path.join(folder_path, file_name)
         data = pd.read_csv(file_path)
         i = 0
+        y = 0
 
         for index, row in data.iterrows():
+            y = y+1
+            if y = 30:
+                break
             scene_number = row['scene_number']
             location = row['location']
             description = row['description']
