@@ -122,7 +122,7 @@ class Command(BaseCommand):
             for name in character_names:
                 
                 character = Character.objects.get_or_create(name=name)[0]
-                if character.avatar.url == "/media/static/img%07dd.png" and i < len(image_paths):
+                if character.avatar.url == "/media/static/img/add.png" and i < len(image_paths):
                     character.avatar.name = image_paths[i]
                     i = i+ 1
 
