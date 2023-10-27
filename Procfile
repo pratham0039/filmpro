@@ -1,0 +1,1 @@
+web gunicorn FilmPro.wsgi:application --log-file -
