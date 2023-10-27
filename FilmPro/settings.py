@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'characters.apps.CharactersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
-    'django-extensions',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
