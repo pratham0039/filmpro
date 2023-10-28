@@ -51,6 +51,7 @@ class SceneDurationRemark(models.Model):
     notescs = models.TextField(null=True, blank=True)
     lenscs = models.TextField(null=True, blank=True)
     shotno = models.IntegerField(null=True, blank=True)
+    takeno = models.CharField(max_length=255, default = 'none')
 
     def __str__(self):
         return f'Scene {self.scene_number} Duration and Remark'
