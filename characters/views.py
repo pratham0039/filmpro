@@ -491,6 +491,7 @@ def add_duration_remark(request, pk):
             lenscs = form.cleaned_data['lenscs']
             notescs = form.cleaned_data['notescs']
             shotno = form.cleaned_data['shotno']
+            takeno = form.cleaned_data['takeno']
             
             # Create a new SceneDurationRemark object
             SceneDurationRemark.objects.create(scene_number=scene.scene_number, duration=duration, remark=remark, lenscs = lenscs, notescs = notescs, shotno = shotno)
