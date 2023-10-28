@@ -166,6 +166,8 @@ class Command(BaseCommand):
             # Add the characters to the scene
             scene.characters.add(*characters)
             y = y+1
-            print(y)
+            if y = 10:
+                break
+            
  
             
