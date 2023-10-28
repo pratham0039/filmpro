@@ -772,6 +772,7 @@
                   <thead>
                     <tr>
                       <th class="text-secondary opacity-7">Scene Number</th>
+                      <th class="text-secondary opacity-7">Take No.</th>
                       <th class="text-secondary opacity-7">Shot No.</th>
                       <th class="text-secondary opacity-7">Duration</th>
                       <th class="text-secondary opacity-7">Remarks</th>
@@ -783,6 +784,7 @@
                     {% for duration_remark in duration_remark %}
                     <tr class="{% if duration_remark.remark == 'good' %}good-row{% elif duration_remark.remark == 'bad' %}bad-row{% else %}okay-row{% endif %}">
                             <td style="width: 10%; color: white;"><strong>{{ duration_remark.scene_number }}</strong></td>
+                            <td style="width: 10%; color: white;"><strong>{{ duration_remark.takeno }}</strong></td>
                             <td style="width: 10%; color: white;"><strong>{{ duration_remark.shotno }}</strong></td>
                             <td style="width: 10%; color: white;"><strong>{{ duration_remark.duration }}</strong></td>
                             <td style="width: 10%; color: white;"><strong>{{ duration_remark.remark }}</strong></td>
@@ -1045,6 +1047,8 @@
             <h3>Add a shot {{ scene.scene_number }}</h3>
             <form method="post" id="add-duration-remark-form" action="{% url 'add_duration_remark' pk=scene.pk %}">
                 {% csrf_token %}
+                <label for="duration">Take No,:</label>
+                <input type="text" id="takeno" name="takeno" placeholder="Enter Take No." required value=""><br>
                 <label for="duration">Shot No,:</label>
                 <input type="text" id="shotno" name="shotno" placeholder="Enter Shot No." required value=""><br>
                 <label for="duration">Duration:</label>
