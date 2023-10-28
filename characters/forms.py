@@ -6,3 +6,4 @@ class SceneDurationRemarkForm(forms.Form):
     lenscs = forms.CharField(widget=forms.Textarea, required=False)
     notescs = forms.CharField(widget=forms.Textarea, required=False)
     shotno = forms.IntegerField(widget=forms.Textarea, required=False)
+    takeno = forms.CharField(widget=forms.Textarea, required=False)
