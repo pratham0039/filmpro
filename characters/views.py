@@ -375,6 +375,10 @@ def process_pdf(pdf_path):
         scene_script = None
         try:
           sceneno = scene.split("\n")[1]
+          desc =scene.split("\n")[2:3]
+          summary = ""
+          for x in desc:
+              summary = summary + x
 
         except:
           continue
@@ -459,7 +463,7 @@ def process_pdf(pdf_path):
 
        
         for time_of_day, location, place in zip(time_of_day_list, location_list, place_list):
-            new_row = {'scene_number': sceneno, 'int_ext': location, 'timeofday': time_of_day, 'location':place, 'description': scene, 'cast_id' : charactersss, 'costume_notes' :charactersss, 'hair_makeup': charactersss }
+            new_row = {'scene_number': sceneno, 'int_ext': location, 'timeofday': time_of_day, 'location':place, 'description': summary, 'cast_id' : charactersss, 'costume_notes' :charactersss, 'hair_makeup': charactersss }
             df = df._append(new_row, ignore_index=True)
             #print(f"Scene {sceneno}:\nTime of Day: {time_of_day}\nLocation: {location}\nPlace: {place}\n {scene_script}\n character = {charactersss}")
 
