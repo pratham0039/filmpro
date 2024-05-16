@@ -423,6 +423,8 @@ def process_pdf(pdf_path):
         scene_description = scene.split("\n")[0]
         try:
           sceneno = scene.split("\n")[1]
+          desc =scene.split("\n")[2:3]
+          summary = desc[0]
 
         except:
           continue
