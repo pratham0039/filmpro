@@ -424,7 +424,10 @@ def process_pdf(pdf_path):
         try:
           sceneno = scene.split("\n")[1]
           desc =scene.split("\n")[2:]
+          if sceneno in desc:
+            desc.remove(sceneno)
           scene_summary = ' '.join(desc)
+
           summary = desc[0]
 
         except:
